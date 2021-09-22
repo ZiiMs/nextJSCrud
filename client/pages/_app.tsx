@@ -6,12 +6,12 @@ import Layout from '@/components/layout';
 import '../src/theme/style.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
-	return (
-		<ChakraProvider theme={theme}>
-			<Layout>
-				<Component {...pageProps} />
-			</Layout>
-		</ChakraProvider>
-	);
+  return (
+    <ChakraProvider theme={theme}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ChakraProvider>
+  );
 }
 export default MyApp;
