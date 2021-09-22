@@ -1,4 +1,4 @@
-import { useDisclosure, useToast, VStack } from '@chakra-ui/react';
+import { useDisclosure, useToast, VStack, Flex } from '@chakra-ui/react';
 import type { NextPage, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -133,9 +133,9 @@ const Home = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   return (
     <div>
-      <VStack spacing={4} align='center'>
+      <VStack spacing={4} w='full'>
         {posts.map((post, i) => (
-          <div key={post._id}>
+          <Flex w='full' align='center' justifyContent='center' key={post._id}>
             <Post Post={post} edit={editClick} remove={deleteClick} />
             <PostDialog
               isOpen={openId == post._id}
@@ -152,7 +152,7 @@ const Home = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
               User={post.user}
               id={post._id}
             />
-          </div>
+          </Flex>
         ))}
       </VStack>
     </div>

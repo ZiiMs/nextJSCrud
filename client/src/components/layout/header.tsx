@@ -70,7 +70,9 @@ const Header = () => {
         Text={''}
         User={''}
       />
-      <Heading size='sm'>Crud-NextJS</Heading>
+      <Heading size='sm' alignItems='flex-start'>
+        Crud-NextJS
+      </Heading>
       <Spacer />
       <HStack spacing={6}>
         <Button size='sm' variant='ghost' onClick={onOpen}>

@@ -15,7 +15,7 @@ import {
   FormControl,
   useDisclosure,
 } from '@chakra-ui/react';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PostContext from 'src/context/postsContext';
 
 type Props = {
@@ -48,6 +48,13 @@ const PostDialog = ({
       handleSubmit(e, title, text, user);
     }
   };
+
+  useEffect(() => {
+    setTitle(Title);
+    setUser(User);
+    setText(Text);
+    return;
+  }, [isOpen]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size='lg'>
