@@ -1,5 +1,5 @@
 import express from 'express';
-import { insert, findAll, findTitle, remove } from './mongodb';
+import { insert, findAll, findTitle, remove, update } from './mongodb';
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -24,6 +24,14 @@ app.post('/insert', async (req, res) => {
 	res.json({
 		message: 'Inserted!',
 		post: result,
+	});
+});
+
+app.post('/update', async (req, res) => {
+	const { title, body, user, id } = req.body;
+	update({ title, body, user }, id);
+	res.json({
+		message: 'Updated!',
 	});
 });
 

@@ -46,6 +46,34 @@ export async function findTitle(title: string) {
 	}
 }
 
+export async function update(data: post, id: string) {
+	try {
+		const { title, body, user } = data;
+		await client.connect();
+
+		const db = client.db('ZiiMCrud');
+
+		const posts = db.collection<post>('post');
+		const result = await posts.updateOne(
+			{
+				_id: new ObjectId(id),
+			},
+			{
+				$set: {
+					body: data.body,
+					title: data.title,
+					user: data.user,
+				},
+			}
+		);
+		console.log(
+			`${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`
+		);
+	} finally {
+		await client.close();
+	}
+}
+
 export async function insert(data: post) {
 	try {
 		const { title, body, user } = data;

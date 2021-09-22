@@ -11,6 +11,7 @@ import {
 import React from 'react';
 import { PostType } from '../../../pages';
 import { MdEdit, MdDelete } from 'react-icons/md';
+import PostDialog from '../postmodal';
 
 interface Props {
 	Post: PostType;

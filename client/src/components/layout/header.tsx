@@ -22,16 +22,19 @@ import {
 import React, { useContext, useState } from 'react';
 import { IoMoon, IoSunny } from 'react-icons/io5';
 import PostContext from '../../context/postsContext';
+import PostDialog from '../postmodal';
 
 const Header = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [title, setTitle] = useState('');
-	const [user, setUser] = useState('');
-	const [text, setText] = useState('');
 	const { dispatch } = useContext(PostContext);
 
-	const handleSubmit = async (e: React.MouseEvent<HTMLElement>) => {
+	const handleSubmit = async (
+		e: React.MouseEvent<HTMLElement>,
+		title: string,
+		text: string,
+		user: string
+	) => {
 		e.preventDefault();
 		fetch('http://localhost:1337/insert', {
 			method: 'POST',
@@ -47,9 +50,6 @@ const Header = () => {
 			.then((res) => res.json())
 			.then((json) => {
 				onClose();
-				setTitle('');
-				setText('');
-				setUser('');
 				dispatch('posts', json.post);
 			});
 	};
@@ -62,58 +62,14 @@ const Header = () => {
 			pt={3}
 			px={6}
 		>
-			<Modal isOpen={isOpen} onClose={onClose} size='lg'>
-				<ModalOverlay />
-				<ModalContent>
-					<ModalHeader>Create your new post</ModalHeader>
-					<ModalCloseButton onClick={onClose} />
-					<ModalBody>
-						<FormControl>
-							<HStack pb={2}>
-								<VStack alignItems='flex-start'>
-									<Heading size='sm' pb={1}>
-										Title
-									</Heading>
-									<Input
-										placeholder='Title'
-										onChange={(e) =>
-											setTitle(e.target.value)
-										}
-										value={title}
-									/>
-								</VStack>
-								<VStack alignItems='flex-start'>
-									<Heading size='sm' pb={1}>
-										User
-									</Heading>
-									<Input
-										placeholder='User'
-										onChange={(e) =>
-											setUser(e.target.value)
-										}
-										value={user}
-									/>
-								</VStack>
-							</HStack>
-							<Heading size='sm' pb={2}>
-								Text
-							</Heading>
-							<Textarea
-								placeholder='Text'
-								size='sm'
-								onChange={(e) => setText(e.target.value)}
-								value={text}
-							/>
-						</FormControl>
-					</ModalBody>
-					<ModalFooter>
-						<Button mr={4} onClick={handleSubmit}>
-							Submit
-						</Button>
-						<Button onClick={onClose}>Close</Button>
-					</ModalFooter>
-				</ModalContent>
-			</Modal>
+			<PostDialog
+				isOpen={isOpen}
+				onClose={onClose}
+				handleSubmit={handleSubmit}
+				Title={''}
+				Text={''}
+				User={''}
+			/>
 			<Heading size='sm'>Crud-NextJS</Heading>
 			<Spacer />
 			<HStack spacing={6}>
